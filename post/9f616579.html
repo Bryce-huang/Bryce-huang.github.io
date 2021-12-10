@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="/img/blog/crown.png"><link rel="icon" type="image/png" href="/img/blog/crown.png"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta name="theme-color" content="#2f4154"><meta name="description" content="Nothing is so common as the wish to be remarkables"><meta name="author" content="Bryce Huang"><meta name="keywords" content="blog,program,life"><title>prometheus operator 接入钉钉 - Bryce&#39;s Club</title><link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/dracula.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css"><link rel="stylesheet" href="https://cdn.staticfile.org/gitalk/1.6.2/gitalk.css"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Bryce's Club" type="application/atom+xml"></head><body><div id="dark" onclick="switchDarkMode()"></div><script>var isNight=18<=(new Date).getHours()||(new Date).getHours()<8;(matchMedia("(prefers-color-scheme: dark)").matches||isNight||"1"===localStorage.getItem("dark"))&&(isNight&&"1"===localStorage.getItem("noDark")||document.body.classList.add("dark")),document.getElementById("dark").innerHTML=document.querySelector("body").classList.contains("dark")?"🌙":"🌞"</script><header style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/">&nbsp;<strong>Bryce's Club</strong>&nbsp;</a> <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/"><i class="iconfont icon-home-fill"></i> 首页</a></li><li class="nav-item"><a class="nav-link" href="/archives/"><i class="iconfont icon-archive-fill"></i> 归档</a></li><li class="nav-item"><a class="nav-link" href="/categories/"><i class="iconfont icon-category-fill"></i> 分类</a></li><li class="nav-item"><a class="nav-link" href="/tags/"><i class="iconfont icon-tags-fill"></i> 标签</a></li><li class="nav-item"><a class="nav-link" href="/links/"><i class="iconfont icon-link-fill"></i> 友链</a></li><li class="nav-item"><a class="nav-link" href="/messageboard/"><i class="iconfont icon-speakernotes"></i> 留言</a></li><li class="nav-item"><a class="nav-link" href="/features/"><i class="iconfont icon-exp-fill"></i> 功能</a></li><li class="nav-item"><a class="nav-link" href="/about/"><i class="iconfont icon-user-fill"></i> 关于</a></li><li class="nav-item" id="search-btn"><a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a></li></ul></div></div></nav><div class="view intro-2" id="background" parallax="true" style="background:url(/img/star-guardian/champion-pajama-group-splash.webp) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="container text-center white-text fadeInUp"><span class="h2" id="subtitle"></span><div class="mt-3 post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2020-04-02 10:51">星期四, 四月 2日 2020, 10:51 上午</time></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 690 字 </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 10 分钟</span></div></div></div></div></div></header><main><div class="container-fluid"><div class="row"><div class="d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-md"><div class="container nopadding-md" id="board-ctn"><div class="py-5" id="board"><div class="post-content mx-auto" id="post"><article class="markdown-body"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了及时收到告警消息，考虑了几种方案，最终选择钉钉。方案有几种：</p><ul><li>电话</li><li>短信</li><li>企业微信</li><li>钉钉</li><li>slack</li></ul><p>电话、短信需要对接相关api，并且需要收费。企业微信需要认证，手续麻烦了。slack国内不方便，钉钉对接也比较简单，有比较现成的解决方案。我们运维团队人不多。已经足够了。作为即时IM通信软件，时效性也能得到保障。</p><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="安装钉钉"><a href="#安装钉钉" class="headerlink" title="安装钉钉"></a>安装钉钉</h3><p>安装<a href="https://page.dingtalk.com/wow/dingtalk/act/download?spm=a213l2.13146415.7065056597.9.7f1518e6fxwEeD" target="_blank" rel="noopener">钉钉</a>，建立钉钉群，添加自定义机器人，通过限制ip地址请求机器人，填写公网的ip地址，改地址为SNAT的公网ip，得到一个类似于这样的：<code>https://oapi.dingtalk.com/robot/send?access_token=c7bxxxxa42f680cxxxxxc3032</code> 地址。</p><h3 id="安装dingtalk的webhook服务"><a href="#安装dingtalk的webhook服务" class="headerlink" title="安装dingtalk的webhook服务"></a>安装dingtalk的webhook服务</h3><p>由于钉钉的webhook是有格式的，所以我们采用<code>timonwong/prometheus-webhook-dingtalk:v1.4.0</code>这个webhook服务来接受alert manager的告警信息，然后将告警信息转换成钉钉所能识别的webhook的格式。以下为openshift的安装模板：</p><div class="hljs"><pre><code class="hljs yml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Template</span>
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">name:</span> <span class="hljs-string">dingtalk-template</span>
+<span class="hljs-attr">annotations:</span>
+  <span class="hljs-attr">description:</span> <span class="hljs-string">dingtalk-alert</span>
+<span class="hljs-attr">parameters:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">NAMESPACE</span>
+  <span class="hljs-attr">value:</span> <span class="hljs-string">monitoring</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">DING_TALK_URL</span>
+  <span class="hljs-attr">value:</span> <span class="hljs-string">https://oapi.dingtalk.com/robot/send?access_token=c7b19xxxf5370270b10d255934c3032</span>
+<span class="hljs-attr">objects:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+  <span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>
+  <span class="hljs-attr">metadata:</span>
+    <span class="hljs-attr">namespace:</span> <span class="hljs-string">$&#123;NAMESPACE&#125;</span>
+    <span class="hljs-attr">annotations:</span>
+      <span class="hljs-attr">deployment.kubernetes.io/revision:</span> <span class="hljs-string">'1'</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">webhook-dingtalk</span>
+      <span class="hljs-attr">prometheus:</span> <span class="hljs-string">ipaas</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">webhook-dingtalk</span>
+  <span class="hljs-attr">spec:</span>
+    <span class="hljs-attr">progressDeadlineSeconds:</span> <span class="hljs-number">600</span>
+    <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span>
+    <span class="hljs-attr">revisionHistoryLimit:</span> <span class="hljs-number">3</span>
+    <span class="hljs-attr">selector:</span>
+      <span class="hljs-attr">matchLabels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">webhook-dingtalk</span>
+    <span class="hljs-attr">strategy:</span>
+      <span class="hljs-attr">rollingUpdate:</span>
+      <span class="hljs-attr">maxSurge:</span> <span class="hljs-number">25</span><span class="hljs-string">%</span>
+      <span class="hljs-attr">maxUnavailable:</span> <span class="hljs-number">25</span><span class="hljs-string">%</span>
+      <span class="hljs-attr">type:</span> <span class="hljs-string">RollingUpdate</span>
+    <span class="hljs-attr">template:</span>
+      <span class="hljs-attr">metadata:</span>
+      <span class="hljs-attr">creationTimestamp:</span> <span class="hljs-literal">null</span>
+      <span class="hljs-attr">labels:</span>
+          <span class="hljs-attr">app:</span> <span class="hljs-string">webhook-dingtalk</span>
+          <span class="hljs-attr">prometheus:</span> <span class="hljs-string">ipaas</span>
+      <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">containers:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">args:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">'--web.listen-address=0.0.0.0:8060'</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">'--web.enable-ui'</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">'--config.file=/etc/prometheus-webhook-dingtalk/config.yml'</span>
+      <span class="hljs-attr">env:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">TZ</span>
+        <span class="hljs-attr">value:</span> <span class="hljs-string">CST-8</span>
+      <span class="hljs-attr">image:</span> <span class="hljs-string">'timonwong/prometheus-webhook-dingtalk:v1.4.0'</span>
+      <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+      <span class="hljs-attr">livenessProbe:</span>
+        <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span>
+        <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">30</span>
+        <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span>
+        <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span>
+        <span class="hljs-attr">tcpSocket:</span>
+        <span class="hljs-attr">port:</span> <span class="hljs-number">8060</span>
+        <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">1</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">webhook-dingtalk</span>
+      <span class="hljs-attr">ports:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">8060</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">tcp-8060</span>
+        <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span>
+      <span class="hljs-attr">readinessProbe:</span>
+        <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">3</span>
+        <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">30</span>
+        <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">10</span>
+        <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span>
+        <span class="hljs-attr">tcpSocket:</span>
+        <span class="hljs-attr">port:</span> <span class="hljs-number">8060</span>
+        <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">1</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">limits:</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">500m</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">500Mi</span>
+        <span class="hljs-attr">requests:</span>
+        <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span>
+        <span class="hljs-attr">memory:</span> <span class="hljs-string">100Mi</span>
+      <span class="hljs-attr">terminationMessagePath:</span> <span class="hljs-string">/dev/termination-log</span>
+      <span class="hljs-attr">terminationMessagePolicy:</span> <span class="hljs-string">File</span>
+      <span class="hljs-attr">volumeMounts:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/prometheus-webhook-dingtalk/config.yml</span>
+        <span class="hljs-attr">name:</span> <span class="hljs-string">webhook-dingtalk</span>
+        <span class="hljs-attr">subPath:</span> <span class="hljs-string">config.yml</span>
+      <span class="hljs-attr">dnsPolicy:</span> <span class="hljs-string">ClusterFirst</span>
+      <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span>
+      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">default-scheduler</span>
+      <span class="hljs-attr">securityContext:</span> <span class="hljs-string">&#123;&#125;</span>
+      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">30</span>
+      <span class="hljs-attr">volumes:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">configMap:</span>
+              <span class="hljs-attr">defaultMode:</span> <span class="hljs-number">420</span>
+              <span class="hljs-attr">name:</span> <span class="hljs-string">webhook-dingtalk</span>
+          <span class="hljs-attr">name:</span> <span class="hljs-string">webhook-dingtalk</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+  <span class="hljs-attr">data:</span>
+    <span class="hljs-attr">config.yml:</span> <span class="hljs-string">|</span>
+      <span class="hljs-comment">## Request timeout</span>
+      <span class="hljs-comment"># timeout: 5s</span>
+
+      <span class="hljs-comment">## Customizable templates path</span>
+      <span class="hljs-comment"># templates:</span>
+      <span class="hljs-comment">#   - contrib/templates/legacy/template.tmpl</span>
+
+      <span class="hljs-comment">## You can also override default template using `default_message`</span>
+      <span class="hljs-comment">## The following example to use the 'legacy' template from v0.3.0</span>
+      <span class="hljs-comment"># default_message:</span>
+      <span class="hljs-comment">#   title: '&#123;&#123; template "legacy.title" . &#125;&#125;'</span>
+      <span class="hljs-comment">#   text: '&#123;&#123; template "legacy.content" . &#125;&#125;'</span>
+
+      <span class="hljs-comment">## Targets, previously was known as "profiles"</span>
+      <span class="hljs-attr">targets:</span>
+        <span class="hljs-attr">webhook1:</span>
+          <span class="hljs-attr">url:</span> <span class="hljs-string">$&#123;DING_TALK_URL&#125;</span>
+          <span class="hljs-comment"># secret for signature</span>
+          <span class="hljs-attr">secret:</span> <span class="hljs-string">SEC000000000000000000000</span>
+        <span class="hljs-attr">webhook2:</span>
+          <span class="hljs-attr">url:</span> <span class="hljs-string">$&#123;DING_TALK_URL&#125;</span>
+        <span class="hljs-attr">webhook_legacy:</span>
+          <span class="hljs-attr">url:</span> <span class="hljs-string">$&#123;DING_TALK_URL&#125;</span>
+          <span class="hljs-comment"># Customize template content</span>
+          <span class="hljs-attr">message:</span>
+            <span class="hljs-comment"># Use legacy template</span>
+            <span class="hljs-attr">title:</span> <span class="hljs-string">'<span class="hljs-template-variable">&#123;&#123; template "legacy.title" . &#125;&#125;</span>'</span>
+            <span class="hljs-attr">text:</span> <span class="hljs-string">'<span class="hljs-template-variable">&#123;&#123; template "legacy.content" . &#125;&#125;</span>'</span>
+        <span class="hljs-attr">webhook_mention_all:</span>
+          <span class="hljs-attr">url:</span> <span class="hljs-string">$&#123;DING_TALK_URL&#125;</span>
+          <span class="hljs-attr">mention:</span>
+            <span class="hljs-attr">all:</span> <span class="hljs-literal">true</span>
+        <span class="hljs-attr">webhook_mention_users:</span>
+          <span class="hljs-attr">url:</span> <span class="hljs-string">$&#123;DING_TALK_URL&#125;</span>
+          <span class="hljs-attr">mention:</span>
+            <span class="hljs-attr">mobiles:</span> <span class="hljs-string">['133xxxxx195']</span>
+  <span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+  <span class="hljs-attr">metadata:</span>
+    <span class="hljs-attr">namespace:</span> <span class="hljs-string">$&#123;NAMESPACE&#125;</span>
+    <span class="hljs-attr">labels:</span>
+      <span class="hljs-attr">app:</span> <span class="hljs-string">webhook-dingtalk</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">webhook-dingtalk</span></code></pre></div><h3 id="修改alertmanager-yaml"><a href="#修改alertmanager-yaml" class="headerlink" title="修改alertmanager.yaml"></a>修改alertmanager.yaml</h3><p>经过以上的步骤就已经搭建好webhook服务了，接下来需要把aler manager中的receivers和route配置一下即可，参考：</p><div class="hljs"><pre><code class="hljs yaml"><span class="hljs-attr">global:</span>
+  <span class="hljs-attr">resolve_timeout:</span> <span class="hljs-string">5m</span>
+  <span class="hljs-attr">smtp_require_tls:</span> <span class="hljs-literal">false</span>
+<span class="hljs-attr">route:</span>
+  <span class="hljs-attr">group_wait:</span> <span class="hljs-string">30s</span>
+  <span class="hljs-attr">group_interval:</span> <span class="hljs-string">5m</span>
+  <span class="hljs-attr">repeat_interval:</span> <span class="hljs-string">30m</span>
+  <span class="hljs-attr">receiver:</span> <span class="hljs-string">dingtalk</span>
+<span class="hljs-attr">receivers:</span>
+<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">dingtalk</span>
+  <span class="hljs-attr">webhook_configs:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">send_resolved:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">url:</span> <span class="hljs-string">http://webhook-dingtalk.monitoring.svc:8060/dingtalk/webhook1/send</span></code></pre></div></article><hr><div><div class="post-metas mb-3"><div class="post-meta mr-3"><i class="iconfont icon-category"></i> <a class="hover-with-bg" href="/categories/%E7%9B%91%E6%8E%A7/">监控</a></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a class="hover-with-bg" href="/tags/prometheus/">prometheus</a> <a class="hover-with-bg" href="/tags/prometheus-operator/">prometheus-operator</a> <a class="hover-with-bg" href="/tags/%E9%92%89%E9%92%89/">钉钉</a> <a class="hover-with-bg" href="/tags/%E5%91%8A%E8%AD%A6/">告警</a></div></div><p class="note note-warning">本博客所有文章除特别声明外，均采用: <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际协议</a>，转载请保留原文链接及作者。</p><div class="post-prevnext row"><div class="post-prev col-6"><a href="/post/79465543.html"><i class="iconfont icon-arrowleft"></i> <span class="hidden-mobile">为没有密码保护的okd应用添加oauth proxy</span> <span class="visible-mobile">上一篇</span></a></div><div class="post-next col-6"><a href="/post/cab10e7.html"><span class="hidden-mobile">使用最轻量的方式进行blog集成</span> <span class="visible-mobile">下一篇</span> <i class="iconfont icon-arrowright"></i></a></div></div></div><div class="comments" id="comments"><div id="vcomments"></div><script defer src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="/js/Valine.min.js"></script><script type="text/javascript">var notify=!1,verify=!1,oldLoadVa=window.onload;window.onload=function(){oldLoadVa&&oldLoadVa(),new Valine({lang:"zh-cn",el:"#vcomments",notify:notify,verify:verify,app_id:"dXhxgFWthuLPDnYYuAJbIe6X-MdYXbMMI",app_key:"In8P9esI1pt8dBUc7JbFCvLa",placeholder:"说点什么",avatar:"/retro",meta:["nick","mail","link"],pageSize:"10",emoticon_url:"/emoji",emoticon_list:["动耳朵.gif","抖脚脚.gif","抖眼.gif","抖眼镜.gif","风吹秀发.gif","慌张.gif","夹住.gif","开车.gif","哭唧唧.gif","绿色的.gif","跳舞.gif","跳着走.gif","小花花.gif","眼睛转.gif","摇头.gif","眨眼.gif","吃东西.gif","弹肚皮.gif","动次打次.gif","比心心.gif","吹风.gif","打篮球.gif","都是小心心.gif","吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"]})}</script></div></div></div></div></div><div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p><div id="tocbot"></div></div></div></div></div><div class="col-lg-7 mx-auto nopadding-md"><div class="container custom post-content mx-auto"><img src="/images/wechatpay.webp" class="rounded mx-auto d-block mt-5" style="width:120px;height:150px;vertical-align:-webkit-baseline-middle"><br><div style="text-align:center">买个卤蛋，吃根冰棒</div></div></div></main><a id="scroll-top-button" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">搜索</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">关键词</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div><footer class="mt-5"><div class="text-center py-3"><div><svg t="1586793095516" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3553" width="16" height="16"><path d="M512 0c282.7776 0 512 229.2224 512 512s-229.2224 512-512 512S0 794.7776 0 512 229.2224 0 512 0z m0 71.424a440.576 440.576 0 1 0 0 881.152 440.576 440.576 0 0 0 0-881.152z m8.192 166.7072c55.296 0 108.3904 15.5136 153.7536 44.2368a35.7376 35.7376 0 0 1-38.144 60.3648 215.6032 215.6032 0 0 0-115.5584-33.1264c-116.6336 0-210.6368 90.88-210.6368 202.3936s94.0032 202.3936 210.6368 202.3936c41.0112 0 80.2304-11.264 113.8688-32.1024a35.7376 35.7376 0 0 1 37.632 60.7744 287.1296 287.1296 0 0 1-151.552 42.8032c-155.4944 0-282.0608-122.368-282.0608-273.8688 0-151.552 126.5664-273.8688 282.112-273.8688z" fill="#8a8a8a" p-id="3554"></path></svg> <span itemprop="copyrightYear" id="cori">2021</span><br><svg t="1584375698087" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1913" width="23" height="14"><path d="M513.984496 513.984496c141.383442 0 256-114.616558 256-256S655.367938 1.984496 513.984496 1.984496 257.984496 116.601054 257.984496 257.984496s114.616558 256 256 256z m0-59.534884c-108.50431 0-196.465116-87.960806-196.465116-196.465116s87.960806-196.465116 196.465116-196.465116 196.465116 87.960806 196.465116 196.465116-87.960806 196.465116-196.465116 196.465116z" fill="#8a8a8a" p-id="1914"></path><path d="M1020.031008 992.248062c0-281.647628-227.423256-510.015504-508.031008-510.015504S3.968992 710.600434 3.968992 992.248062a29.767442 29.767442 0 1 0 59.534884 0c0-248.820093 200.827039-450.48062 448.496124-450.48062s448.496124 201.660527 448.496124 450.48062a29.767442 29.767442 0 1 0 59.534884 0z" fill="#8a8a8a" p-id="1915"></path></svg> <span class="author" id="cori" itemprop="copyrightHolder">Bryce Huang</span></div></div><script type="text/javascript" src="/js/commentTyping.min.js"></script></footer><script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script><script src="/js/main.js"></script><script src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js"></script><script>$(document).ready(function(){var t=$("#board-ctn").offset().top;tocbot.init({tocSelector:"#tocbot",contentSelector:".post-content",headingSelector:"h1,h2,h3,h4,h5,h6",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",collapseDepth:6,scrollSmooth:!0,headingsOffset:-t}),0<$(".toc-list-item").length&&$("#toc").css("visibility","visible")})</script><script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js"></script><script src="/js/clipboard-use.js"></script><script src="/js/custom.js"></script><script src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js"></script><script>var typed=new Typed("#subtitle",{strings:["  ","prometheus operator 接入钉钉&nbsp;"],cursorChar:"_",typeSpeed:70,loop:!1});typed.stop(),$(document).ready(function(){$(".typed-cursor").addClass("h2"),typed.start()})</script><script src="/js/local-search.js"></script><script>var path="/local-search.xml",inputArea=document.querySelector("#local-search-input");inputArea.onclick=function(){searchFunc(path,"local-search-input","local-search-result"),this.onclick=null}</script><script src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js"></script><link rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css"><script>$("#post img:not(.no-zoom img, img[no-zoom]), img[zoom]").each(function(){var t=document.createElement("a");$(t).attr("data-fancybox","images"),$(t).attr("href",$(this).attr("src")),$(this).wrap(t)})</script></body></html>

@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Bryce&#39;s Club</title>
+  <icon>https://bryce-huang.club/img/crown.png</icon>
+  <subtitle>人生如逆旅，我亦是行人</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://bryce-huang.club/"/>
+  <updated>2021-12-10T02:16:20.396Z</updated>
+  <id>https://bryce-huang.club/</id>
+  
+  <author>
+    <name>Bryce Huang</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>go AES CFB加解密与Java互转</title>
+    <link href="https://bryce-huang.club/post/5ddf423b.html"/>
+    <id>https://bryce-huang.club/post/5ddf423b.html</id>
+    <published>2021-12-08T08:18:09.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;go 和java 的 AES CFB加密略有不同&lt;/p&gt;&lt;h2 id=&quot;java-版本&quot;&gt;&lt;a href=&quot;#java-版本&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="编程" scheme="https://bryce-huang.club/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="java" scheme="https://bryce-huang.club/tags/java/"/>
+    
+      <category term="security" scheme="https://bryce-huang.club/tags/security/"/>
+    
+      <category term="go" scheme="https://bryce-huang.club/tags/go/"/>
+    
+      <category term="AES" scheme="https://bryce-huang.club/tags/AES/"/>
+    
+      <category term="CFB" scheme="https://bryce-huang.club/tags/CFB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>终端那些事</title>
+    <link href="https://bryce-huang.club/post/ed1d6ed5.html"/>
+    <id>https://bryce-huang.club/post/ed1d6ed5.html</id>
+    <published>2021-12-02T08:08:09.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;最近在学习和处理终端的输入和输出以及命令拦截问题，但终端在编程里属于比较小众的领域，比较有名的类库不多，比如 go 的 &lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="program" scheme="https://bryce-huang.club/categories/program/"/>
+    
+    
+      <category term="go" scheme="https://bryce-huang.club/tags/go/"/>
+    
+      <category term="terminal" scheme="https://bryce-huang.club/tags/terminal/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>manjaro安装记录</title>
+    <link href="https://bryce-huang.club/post/e8385125.html"/>
+    <id>https://bryce-huang.club/post/e8385125.html</id>
+    <published>2021-04-18T13:36:27.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;目前在工作上使用的windows10 + wsl2
+        
+      
+    
+    </summary>
+    
+    
+      <category term="OS" scheme="https://bryce-huang.club/categories/OS/"/>
+    
+    
+      <category term="OS" scheme="https://bryce-huang.club/tags/OS/"/>
+    
+      <category term="LINUX" scheme="https://bryce-huang.club/tags/LINUX/"/>
+    
+      <category term="manjaro" scheme="https://bryce-huang.club/tags/manjaro/"/>
+    
+      <category term="huaweimatebook14" scheme="https://bryce-huang.club/tags/huaweimatebook14/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我对理财的思考</title>
+    <link href="https://bryce-huang.club/post/f59de2d9.html"/>
+    <id>https://bryce-huang.club/post/f59de2d9.html</id>
+    <published>2020-12-10T04:08:09.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="理财" scheme="https://bryce-huang.club/categories/%E7%90%86%E8%B4%A2/"/>
+    
+    
+      <category term="投资" scheme="https://bryce-huang.club/tags/%E6%8A%95%E8%B5%84/"/>
+    
+      <category term="理财" scheme="https://bryce-huang.club/tags/%E7%90%86%E8%B4%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用jib代替docker-maven构建镜像</title>
+    <link href="https://bryce-huang.club/post/d205677f.html"/>
+    <id>https://bryce-huang.club/post/d205677f.html</id>
+    <published>2020-11-20T10:18:22.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://bryce-huang.club/categories/java/"/>
+    
+    
+      <category term="image" scheme="https://bryce-huang.club/tags/image/"/>
+    
+      <category term="容器" scheme="https://bryce-huang.club/tags/%E5%AE%B9%E5%99%A8/"/>
+    
+      <category term="jib" scheme="https://bryce-huang.club/tags/jib/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Java操作k8s和registry</title>
+    <link href="https://bryce-huang.club/post/153c5116.html"/>
+    <id>https://bryce-huang.club/post/153c5116.html</id>
+    <published>2020-11-06T07:51:32.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言-👻&quot;&gt;&lt;a href=&quot;#前言-👻&quot; class=&quot;headerlink&quot; title=&quot;前言 👻&quot;&gt;&lt;/a&gt;前言 👻&lt;/h2&gt;&lt;p&gt;这段时间一直在使用java和k8s开发项目，自然就无法避免需要java客户端去操作k8s和docker
+        
+      
+    
+    </summary>
+    
+    
+      <category term="cloud" scheme="https://bryce-huang.club/categories/cloud/"/>
+    
+    
+      <category term="java" scheme="https://bryce-huang.club/tags/java/"/>
+    
+      <category term="docker" scheme="https://bryce-huang.club/tags/docker/"/>
+    
+      <category term="kubernetes" scheme="https://bryce-huang.club/tags/kubernetes/"/>
+    
+      <category term="registry" scheme="https://bryce-huang.club/tags/registry/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用operator-sdk自定义k8s operator</title>
+    <link href="https://bryce-huang.club/post/acd7e382.html"/>
+    <id>https://bryce-huang.club/post/acd7e382.html</id>
+    <published>2020-09-22T06:07:50.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h2&gt;&lt;p&gt;看到 k8s 生态中越来越多的 operator，是不是也想自己写一个？&lt;/p&gt;&lt;p&gt;在使用 k8s 部署业务应用时，是不是每一次都要
+        
+      
+    
+    </summary>
+    
+    
+      <category term="k8s" scheme="https://bryce-huang.club/categories/k8s/"/>
+    
+    
+      <category term="k8s" scheme="https://bryce-huang.club/tags/k8s/"/>
+    
+      <category term="operator" scheme="https://bryce-huang.club/tags/operator/"/>
+    
+      <category term="crd" scheme="https://bryce-huang.club/tags/crd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql基础知识</title>
+    <link href="https://bryce-huang.club/post/451dc79a.html"/>
+    <id>https://bryce-huang.club/post/451dc79a.html</id>
+    <published>2020-07-18T15:26:04.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;h3 id=&quot;docker安装&quot;&gt;&lt;a href=&quot;#docker安装&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="database" scheme="https://bryce-huang.club/categories/database/"/>
+    
+    
+      <category term="mysql" scheme="https://bryce-huang.club/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ansible简明指北</title>
+    <link href="https://bryce-huang.club/post/66cb4f6f.html"/>
+    <id>https://bryce-huang.club/post/66cb4f6f.html</id>
+    <published>2020-05-15T08:33:19.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Ansible简介&quot;&gt;&lt;a href=&quot;#Ansible简介&quot; class=&quot;headerlink&quot; title=&quot;Ansible简介&quot;&gt;&lt;/a&gt;Ansible简介&lt;/h2&gt;&lt;p&gt;我是在学习部署&lt;a href=&quot;https://docs.okd.io/&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>kubernetes 安装</title>
+    <link href="https://bryce-huang.club/post/d0c3803f.html"/>
+    <id>https://bryce-huang.club/post/d0c3803f.html</id>
+    <published>2020-05-01T09:23:07.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;kubernetes ubuntu安装部署&lt;/strong&gt;&lt;/p&gt;&lt;h2 id=&quot;安装基础环境&quot;&gt;&lt;a href=&quot;#安装基础环境&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ansible 部署zk、kafka、nacos集群</title>
+    <link href="https://bryce-huang.club/post/c21ba7a3.html"/>
+    <id>https://bryce-huang.club/post/c21ba7a3.html</id>
+    <published>2020-04-22T08:33:19.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;通过自动化脚本批量化部署中间件服务器是非常有用的。可以减少大量的重复性工作。&lt;/p&gt;&lt;h2 id=&quot;步骤&quot;&gt;&lt;a href=&quot;#步骤&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>使用elastalert进行日志告警</title>
+    <link href="https://bryce-huang.club/post/ee565d7d.html"/>
+    <id>https://bryce-huang.club/post/ee565d7d.html</id>
+    <published>2020-04-13T11:55:05.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;日志监控解决方案中，常用EFK作为日志解决方案，我们需要针对业务日志进行告警，让开发人员及时收到消息。&lt;br&gt;Elastic
+        
+      
+    
+    </summary>
+    
+    
+      <category term="告警" scheme="https://bryce-huang.club/categories/%E5%91%8A%E8%AD%A6/"/>
+    
+    
+      <category term="elastic search" scheme="https://bryce-huang.club/tags/elastic-search/"/>
+    
+      <category term="日志" scheme="https://bryce-huang.club/tags/%E6%97%A5%E5%BF%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kubernetes 污点和容忍实战</title>
+    <link href="https://bryce-huang.club/post/e68bb2a1.html"/>
+    <id>https://bryce-huang.club/post/e68bb2a1.html</id>
+    <published>2020-04-10T09:27:08.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Prometheus operator使用black_box监控服务连通性</title>
+    <link href="https://bryce-huang.club/post/d0bd304f.html"/>
+    <id>https://bryce-huang.club/post/d0bd304f.html</id>
+    <published>2020-04-10T09:26:32.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>prometheus-operator监控外部服务</title>
+    <link href="https://bryce-huang.club/post/aa7f8012.html"/>
+    <id>https://bryce-huang.club/post/aa7f8012.html</id>
+    <published>2020-04-09T03:06:21.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="监控" scheme="https://bryce-huang.club/categories/%E7%9B%91%E6%8E%A7/"/>
+    
+    
+      <category term="prometheus" scheme="https://bryce-huang.club/tags/prometheus/"/>
+    
+      <category term="prometheus-operator" scheme="https://bryce-huang.club/tags/prometheus-operator/"/>
+    
+      <category term="k8s" scheme="https://bryce-huang.club/tags/k8s/"/>
+    
+      <category term="alert" scheme="https://bryce-huang.club/tags/alert/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为没有密码保护的okd应用添加oauth proxy</title>
+    <link href="https://bryce-huang.club/post/79465543.html"/>
+    <id>https://bryce-huang.club/post/79465543.html</id>
+    <published>2020-04-03T02:19:04.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>prometheus operator 接入钉钉</title>
+    <link href="https://bryce-huang.club/post/9f616579.html"/>
+    <id>https://bryce-huang.club/post/9f616579.html</id>
+    <published>2020-04-02T02:51:43.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="监控" scheme="https://bryce-huang.club/categories/%E7%9B%91%E6%8E%A7/"/>
+    
+    
+      <category term="prometheus" scheme="https://bryce-huang.club/tags/prometheus/"/>
+    
+      <category term="prometheus-operator" scheme="https://bryce-huang.club/tags/prometheus-operator/"/>
+    
+      <category term="钉钉" scheme="https://bryce-huang.club/tags/%E9%92%89%E9%92%89/"/>
+    
+      <category term="告警" scheme="https://bryce-huang.club/tags/%E5%91%8A%E8%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用最轻量的方式进行blog集成</title>
+    <link href="https://bryce-huang.club/post/cab10e7.html"/>
+    <id>https://bryce-huang.club/post/cab10e7.html</id>
+    <published>2020-03-12T13:13:43.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="blog" scheme="https://bryce-huang.club/categories/blog/"/>
+    
+    
+      <category term="blog" scheme="https://bryce-huang.club/tags/blog/"/>
+    
+      <category term="CI/CD" scheme="https://bryce-huang.club/tags/CI-CD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>专业名词记录</title>
+    <link href="https://bryce-huang.club/post/37a9f748.html"/>
+    <id>https://bryce-huang.club/post/37a9f748.html</id>
+    <published>2019-07-25T12:36:03.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;工作之后,发现有不少名词重复的,搞得我都不知道哪个是哪个了,这里记一下常用的名词以及相关术语,避免识词而不知其意,蛮尴尬的!&lt;/p&gt;&lt;h2
+        
+      
+    
+    </summary>
+    
+    
+      <category term="术语" scheme="https://bryce-huang.club/categories/%E6%9C%AF%E8%AF%AD/"/>
+    
+    
+      <category term="专业名词" scheme="https://bryce-huang.club/tags/%E4%B8%93%E4%B8%9A%E5%90%8D%E8%AF%8D/"/>
+    
+      <category term="计算机" scheme="https://bryce-huang.club/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>对常用的压缩加密文件进行破解</title>
+    <link href="https://bryce-huang.club/post/a22360f1.html"/>
+    <id>https://bryce-huang.club/post/a22360f1.html</id>
+    <published>2019-07-24T13:13:43.000Z</published>
+    <updated>2021-12-10T02:16:20.396Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="安全" scheme="https://bryce-huang.club/categories/%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="破解" scheme="https://bryce-huang.club/tags/%E7%A0%B4%E8%A7%A3/"/>
+    
+      <category term="破解工具" scheme="https://bryce-huang.club/tags/%E7%A0%B4%E8%A7%A3%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="压缩文件" scheme="https://bryce-huang.club/tags/%E5%8E%8B%E7%BC%A9%E6%96%87%E4%BB%B6/"/>
+    
+  </entry>
+  
+</feed>
